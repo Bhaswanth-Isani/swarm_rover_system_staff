@@ -5,11 +5,22 @@ import 'package:swarm_rover_system_staff/auth/auth.dart';
 import 'package:swarm_rover_system_staff/dashboard/orders_provider.dart';
 import 'package:swarm_rover_system_staff/router/router.dart';
 
-class DashboardPage extends ConsumerWidget {
+class DashboardPage extends ConsumerStatefulWidget {
   const DashboardPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends ConsumerState<DashboardPage> {
+  @override
+  void initState() {
+    super.initState();
+    ref.read(ordersProvider.notifier).getOrders();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final orders = ref.watch(ordersProvider);
 
     return Scaffold(
